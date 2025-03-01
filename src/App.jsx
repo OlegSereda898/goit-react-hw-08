@@ -1,67 +1,55 @@
-import ContactForm from "./components/ContactForm/ContactForm";
-import SearchBox from "./components/SearchBox/SearchBox";
-import ContactList from "./components/ContactList/ContactList";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  selectContacts,
-  selectError,
-  selectFilteredContacts,
-  selectLoading,
-} from "./redux/contactsSlice";
-import { addContact, deleteContact, fetchContacts } from "./redux/contactsOps";
-import { changeFilter } from "./redux/filtersSlice";
-import { toast } from "react-hot-toast";
-import "./App.css";
-import { useEffect } from "react";
+import { useEffect, lazy } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Route, Routes } from "react-router-dom";
+import { refreshUser } from "./redux/auth/operations";
+import { selectIsRefreshing } from "./redux/auth/selectors";
+import Layout from "./components/Layout";
+import { PrivateRoute } from "./components/PrivateRoute";
+import RestrictedRoute from "./components/RestrictedRoute";
 
-function App() {
-  const contacts = useSelector(selectContacts);
-  const filteredContacts = useSelector(selectFilteredContacts);
+const HomePage = lazy(() => import("./pages/HomePage"));
+const RegistrationPage = lazy(() => import("./pages/RegistrationPage"));
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+const ContactsPage = lazy(() => import("./pages/ContactsPage"));
+
+export const App = () => {
   const dispatch = useDispatch();
+  const isRefreshing = useSelector(selectIsRefreshing);
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(refreshUser());
   }, [dispatch]);
 
-  const handleAddContact = (newContact) => {
-    const isDuplicate = contacts.some(
-      (contact) => contact.name.toLowerCase() === newContact.name.toLowerCase()
-    );
-
-    if (isDuplicate) {
-      toast.error(`${newContact.name} is already in contacts!`);
-      return;
-    }
-
-    dispatch(addContact(newContact));
-    toast.success("Contact added successfully!");
-  };
-
-  const handleDeleteContact = (id) => {
-    dispatch(deleteContact(id));
-    toast.success("Contact deleted successfully!");
-  };
-
-  const handleSearch = (query) => {
-    dispatch(changeFilter(query));
-  };
-
-  const loading = useSelector(selectLoading);
-  const error = useSelector(selectError);
-
-  return (
-    <>
-      <h1 className="title">Phonebook</h1>
-      <ContactForm onAddContact={handleAddContact} />
-      <SearchBox onSearch={handleSearch} />
-      <ContactList
-        contacts={filteredContacts}
-        onDeleteContact={handleDeleteContact}
-      />
-      {loading && <div className="overlay">Loading...</div>}
-      {error && <div className="overlay error">Error: {error}</div>}
-    </>
+  return isRefreshing ? (
+    <b>Refreshing user...</b>
+  ) : (
+    <Layout>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/register"
+          element={
+            <RestrictedRoute
+              redirectTo="/contacts"
+              component={<RegistrationPage />}
+            />
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <RestrictedRoute redirectTo="/contacts" component={<LoginPage />} />
+          }
+        />
+        <Route
+          path="/contacts"
+          element={
+            <PrivateRoute redirectTo="/login">
+              <ContactsPage />
+            </PrivateRoute>
+          }
+        />
+      </Routes>
+    </Layout>
   );
-}
-
-export default App;
+};

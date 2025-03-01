@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
-import { selectFilteredContacts } from "../../redux/contactsSlice";
-import { deleteContact } from "../../redux/contactsOps";
+import { selectFilteredContacts } from "../../redux/contacts/selectors";
+import { deleteContact } from "../../redux/contacts/operations";
 import toast from "react-hot-toast";
 import css from "./ContactList.module.css";
 import { GrUserManager } from "react-icons/gr";
