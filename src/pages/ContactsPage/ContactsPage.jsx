@@ -1,21 +1,22 @@
-import ContactForm from "../components/ContactForm/ContactForm";
-import SearchBox from "../components/SearchBox/SearchBox";
-import ContactList from "../components/ContactList/ContactList";
+import ContactForm from "../../components/ContactForm/ContactForm";
+import SearchBox from "../../components/SearchBox/SearchBox";
+import ContactList from "../../components/ContactList/ContactList";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectContacts,
   selectError,
   selectFilteredContacts,
   selectLoading,
-} from "../redux/contacts/selectors";
+} from "../../redux/contacts/selectors";
 import {
   fetchContacts,
   addContact,
   deleteContact,
-} from "../redux/contacts/operations";
-import { changeFilter } from "../redux/filters/slice";
+} from "../../redux/contacts/operations";
+import { changeFilter } from "../../redux/filters/slice";
 import { toast } from "react-hot-toast";
 import { useEffect } from "react";
+import css from "./ContactsPage.module.css";
 
 const ContactsPage = () => {
   const contacts = useSelector(selectContacts);
@@ -54,7 +55,7 @@ const ContactsPage = () => {
 
   return (
     <>
-      <h1>Contacts</h1>
+      <h1 className={css.title}>Contacts</h1>
       <ContactForm onAddContact={handleAddContact} />
       <SearchBox onSearch={handleSearch} />
       <ContactList

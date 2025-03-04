@@ -1,0 +1,8 @@
+.title {
+  text-align: center;
+  color: #646cff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 20px;
+}

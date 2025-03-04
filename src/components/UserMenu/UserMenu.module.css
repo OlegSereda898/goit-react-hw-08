@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+
+.text {
+  color: rgb(247, 113, 51);
+}
+
+.btn {
+  height: 36px;
+  padding: 0;
+}

@@ -7,6 +7,10 @@
   margin-bottom: 20px;
 }
 
+.label {
+  color: rgb(247, 113, 51);
+}
+
 .input {
   width: 280px;
 }

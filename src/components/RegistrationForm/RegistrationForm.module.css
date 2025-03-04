@@ -1,12 +1,20 @@
 .form {
   display: flex;
   flex-direction: column;
+  gap: 12px;
   width: 300px;
-  margin: 0 auto;
+  margin: 50px, auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #f9f9f9;
+  background-color: #242424;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: rgb(247, 113, 51);
 }
 
 .input {
@@ -16,15 +24,8 @@
   border-radius: 4px;
 }
 
-.button {
-  padding: 10px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.button:hover {
-  background-color: #0056b3;
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
 }

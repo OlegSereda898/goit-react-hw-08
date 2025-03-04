@@ -44,7 +44,7 @@ const ContactForm = () => {
   return (
     <form className={css.form} onSubmit={handleSubmit}>
       <div className={css.container}>
-        <label>Name</label>
+        <label className={css.label}>Name</label>
         <input
           type="text"
           value={name}
@@ -54,7 +54,7 @@ const ContactForm = () => {
       </div>
 
       <div className={css.container}>
-        <label>Number</label>
+        <label className={css.label}>Number</label>
         <input
           type="tel"
           value={number}
@@ -63,7 +63,9 @@ const ContactForm = () => {
         />
       </div>
 
-      <button type="submit">Add Contact</button>
+      <button className={css.button} type="submit">
+        Add Contact
+      </button>
     </form>
   );
 };

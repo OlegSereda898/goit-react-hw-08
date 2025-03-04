@@ -48,7 +48,9 @@ const LoginForm = () => {
           <ErrorMessage name="password" component="div" className={css.error} />
         </label>
 
-        <button type="submit">Log In</button>
+        <button className={css.button} type="submit">
+          Log In
+        </button>
       </Form>
     </Formik>
   );

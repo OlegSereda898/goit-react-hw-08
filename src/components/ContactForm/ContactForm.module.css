@@ -20,6 +20,13 @@
   gap: 5px;
 }
 
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: rgb(247, 113, 51);
+}
+
 .error {
   color: red;
 }
